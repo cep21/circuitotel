@@ -1,0 +1,44 @@
+name: Test
+
+permissions:
+  # Required: allow read access to the content for analysis.
+  contents: read
+  # Optional: allow read access to pull request. Use with `only-new-issues` option.
+  pull-requests: read
+  # Optional: Allow write access to checks to allow the action to annotate code in the PR.
+  checks: write
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        # Note: We support the three latest Go versions
+        go-version: [1.19.x, 1.20.x, 1.21.x]
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go-version }}
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Build
+        run: go build -mod=readonly ./...
+      - name: Verify
+        run: go mod verify
+      - name: Test
+        run: env "GORACE=halt_on_error=1" go test -v -race ./...
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v3
+      - name: Output coverage
+        run: go test -v -covermode=count -coverprofile=coverage.out ./...
+      - name: upload coverage
+        uses: shogo82148/actions-goveralls@v1
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push' && matrix.go-version == '1.21.x'
+        with:
+          path-to-profile: coverage.out
