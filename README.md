@@ -1,5 +1,5 @@
 # circuitotel
-An open telemetry implementation of circuit library metric collector
+An open telemetry implementation of [circuit](https://github.com/cep21/circuit) library metric collector
 
 ## Usage
 
