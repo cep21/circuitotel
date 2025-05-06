@@ -16,8 +16,7 @@ jobs:
   test:
     strategy:
       matrix:
-        # Note: Some otel modules require >= 1.20
-        go-version: [1.20.x, 1.21.x]
+        go-version: [1.24.x]
     name: Test
     runs-on: ubuntu-latest
     steps:
@@ -39,6 +38,6 @@ jobs:
         run: go test -v -covermode=count -coverprofile=coverage.out ./...
       - name: upload coverage
         uses: shogo82148/actions-goveralls@v1
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push' && matrix.go-version == '1.21.x'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push' && matrix.go-version == '1.24.x'
         with:
           path-to-profile: coverage.out
