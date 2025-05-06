@@ -12,11 +12,11 @@ type circuitMetrics struct {
 }
 
 func (c *circuitMetrics) Closed(ctx context.Context, _ time.Time) {
-	c.wrappedSingletons.counterIncr(ctx, "closed", c.m.closed)
+	c.counterIncr(ctx, "closed", c.m.closed)
 }
 
 func (c *circuitMetrics) Opened(ctx context.Context, _ time.Time) {
-	c.wrappedSingletons.counterIncr(ctx, "opened", c.m.open)
+	c.counterIncr(ctx, "opened", c.m.open)
 }
 
 var _ circuit.Metrics = &circuitMetrics{}
