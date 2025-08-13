@@ -2,7 +2,7 @@ module github.com/cep21/circuitotel
 
 go 1.23.0
 
-toolchain go1.24.2
+toolchain go1.25.0
 
 require (
 	github.com/cep21/circuit/v4 v4.0.0
