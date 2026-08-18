@@ -1,12 +1,12 @@
 module github.com/cep21/circuitotel
 
-go 1.23.0
+go 1.24
 
 toolchain go1.24.2
 
 require (
-	github.com/cep21/circuit/v4 v4.0.0
-	github.com/stretchr/testify v1.10.0
+	github.com/cep21/circuit/v4 v4.2.0
+	github.com/stretchr/testify v1.12.0
 	go.opentelemetry.io/otel v1.37.0
 	go.opentelemetry.io/otel/metric v1.37.0
 	go.opentelemetry.io/otel/sdk v1.37.0
